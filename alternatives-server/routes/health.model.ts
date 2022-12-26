@@ -5,7 +5,7 @@ const selectedFood = new Schema({
   list: String,
   healthFood: [
     new Schema({
-      id: String,
+      id: Number,
       ingridientName: String,
       calories: Number,
     }),

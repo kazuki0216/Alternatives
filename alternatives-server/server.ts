@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
+const { getTest, postTest } = require("./routes/health.controller");
 
 dotenv.config();
 
@@ -11,7 +12,10 @@ function setupServer() {
   //middleware
   app.use(express.json());
   app.use(cors());
+  app.get("/", getTest);
+  app.post("/post", postTest);
 
+  mongoose.set("strictQuery", false);
   mongoose.connect("mongodb://localhost:27017/alternatives");
   const connection = mongoose.connection;
   connection.once("open", () => {
