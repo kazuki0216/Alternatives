@@ -1,0 +1,2 @@
+# Alternatives
+Solo MVP Enhanced
