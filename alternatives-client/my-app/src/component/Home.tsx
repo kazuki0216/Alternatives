@@ -7,7 +7,14 @@ function Home() {
   return (
     <div>
       <p>Home Page</p>
-      <button onClick={() => signOut(auth)}>Sign Out from firebase</button>
+      <button
+        onClick={() => {
+          console.log("this ran");
+          signOut(auth);
+        }}
+      >
+        Sign Out from firebase
+      </button>
     </div>
   );
 }
