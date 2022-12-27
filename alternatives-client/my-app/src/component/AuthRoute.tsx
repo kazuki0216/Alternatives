@@ -12,6 +12,7 @@ const AuthRoute = (props: any) => {
 
   useEffect(() => {
     AuthCheck();
+    return () => AuthCheck();
   }, [auth]);
 
   const AuthCheck = onAuthStateChanged(auth, (user) => {

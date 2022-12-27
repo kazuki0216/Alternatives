@@ -1,5 +1,15 @@
+import React from "react";
+import { getAuth, signOut } from "firebase/auth";
+
 function Home() {
-  return <h1>Hello Home Page</h1>;
+  const auth = getAuth();
+
+  return (
+    <div>
+      <p>Home Page</p>
+      <button onClick={() => signOut(auth)}>Sign Out from firebase</button>
+    </div>
+  );
 }
 
 export default Home;
