@@ -1,38 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 36px;
+}
+body {
+  height: 100%;
+  background-color: #efefec;
+  color: rgb(14, 14, 14);
+}
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Title {
+  height: 5rem;
+  position: relative;
+  background: url("./assets/hermes-rivera-Ww8eQWjMJWk-unsplash.jpg");
+  border-radius: purple;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Title h1 {
+  font-family: "Bebas Neue", cursive;
+  color: black;
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-size: 1.5rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+ul {
+  list-style-type: none;
+  /* position: absolute; */
+  left: 0;
+  bottom: 0;
 }
 
-.App-link {
-  color: #61dafb;
+a {
+  padding-top: 10px;
+  font-size: 24px;
+  /* display: block; */
+  text-decoration: none;
+  color: #0a5547;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a:link {
+  text-decoration: none;
+}
+
+/* .Title button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-left: 2.5%;
+  border-radius: 12px;
+  background-color: #facf5a;
+  color: black;
+} */
+
+a:hover {
+  color: #c01212;
+}
+
+.navBar {
+  position: absolute;
+  left: 3.5%;
+  top: 32.5%;
+  float: left;
+}
+
+.navBar button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+.menuNav.showMenu {
+  width: 100%;
+}
+
+.add-card:hover {
+  color: #0a5547;
 }

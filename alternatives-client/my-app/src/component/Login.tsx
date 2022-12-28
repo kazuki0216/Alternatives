@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 export interface ILoginPageProps {}
 
@@ -15,7 +16,7 @@ const Login = (props: any) => {
     signInWithPopup(auth, new GoogleAuthProvider())
       .then((response) => {
         console.log(response.user.uid);
-        navigate("/");
+        navigate("/home");
       })
       .catch((error) => {
         console.log(error);
@@ -23,9 +24,12 @@ const Login = (props: any) => {
       });
   };
   return (
-    <div>
-      <p>Login Page</p>
-      <button onClick={() => signInWithGoogle()} disabled={authing}>
+    <div className="Landing">
+      <button
+        className="sign-in"
+        onClick={() => signInWithGoogle()}
+        disabled={authing}
+      >
         Sign in with Google
       </button>
     </div>

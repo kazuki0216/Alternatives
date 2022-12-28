@@ -1,20 +1,18 @@
 import React from "react";
-import { getAuth, signOut } from "firebase/auth";
+import Header from "./Header";
+import Healthy from "./Healthy";
+import Unhealthy from "./Unhealthy";
+import Navbar from "./Navbar";
+import Cards from "./Cards";
 
 function Home() {
-  const auth = getAuth();
-
   return (
     <div>
-      <p>Home Page</p>
-      <button
-        onClick={() => {
-          console.log("this ran");
-          signOut(auth);
-        }}
-      >
-        Sign Out from firebase
-      </button>
+      <Header />
+      <Navbar />
+      <div className="Home">
+        <Healthy />
+      </div>
     </div>
   );
 }
