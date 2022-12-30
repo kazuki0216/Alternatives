@@ -9,7 +9,6 @@ function Home() {
   return (
     <div>
       <Header />
-      <Navbar />
       <div className="Home">
         <Healthy />
       </div>

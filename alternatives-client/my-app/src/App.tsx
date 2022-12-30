@@ -2,6 +2,7 @@ import React, {useContext} from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./component/Home";
 import Login from "./component/Login";
+import CreateCard from "./component/CreateCard"
 // import SignUp from "./component/SignUp";
 import "./App.css";
 import { initializeApp } from "firebase/app";
@@ -24,6 +25,7 @@ function App() {
             }
           />
           <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<CreateCard />} />
         </Routes>
       </BrowserRouter>
     </div>

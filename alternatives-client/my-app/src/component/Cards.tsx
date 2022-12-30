@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -7,45 +7,155 @@ import CardActions from "@material-ui/core/CardActions";
 import AddIcon from "@mui/icons-material/Add";
 
 export default function Cards() {
-  const handleClick = () => {
-    console.log("this has been clicked.");
-  };
   return (
-    <div style={{}}>
-      <AddIcon className="add-card" onClick={handleClick} />
-      <Card
-        style={{
-          width: 400,
-          margin: 20,
-        }}
-      >
-        <CardContent>
-          <Typography
-            style={{ fontSize: 14 }}
-            color="textSecondary"
-            gutterBottom
-          >
-            Greetings of the day
-          </Typography>
-          <Typography variant="h5" component="h2">
-            How are you ?
-          </Typography>
-          <Typography
-            style={{
-              marginBottom: 12,
-            }}
-            color="textSecondary"
-          >
-            Keep Motivated
-          </Typography>
-          <Typography variant="body2" component="p">
-            Stay Happy
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Stay Safe.....</Button>
-        </CardActions>
-      </Card>
+    <div className="cards">
+      <div className="card1">
+        <Card
+          className="added-card"
+          style={{
+            padding: "20px",
+          }}
+        >
+          <CardContent>
+            <Typography
+              style={{ fontSize: "16px" }}
+              color="textSecondary"
+              gutterBottom
+            >
+              Monday
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Edit</Button>
+          </CardActions>
+        </Card>
+      </div>
+      <div className="card2">
+        <Card
+          className="added-card"
+          style={{
+            padding: "20px",
+          }}
+        >
+          <CardContent>
+            <Typography
+              style={{ fontSize: "16px" }}
+              color="textSecondary"
+              gutterBottom
+            >
+              Tuesday
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Edit</Button>
+          </CardActions>
+        </Card>
+      </div>
+      <div className="card3">
+        <Card
+          className="added-card"
+          style={{
+            padding: "20px",
+          }}
+        >
+          <CardContent>
+            <Typography
+              style={{ fontSize: "16px" }}
+              color="textSecondary"
+              gutterBottom
+            >
+              Wednesday
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Edit</Button>
+          </CardActions>
+        </Card>
+      </div>
+      <div className="card4">
+        <Card
+          className="added-card"
+          style={{
+            padding: "20px",
+          }}
+        >
+          <CardContent>
+            <Typography
+              style={{ fontSize: "16px" }}
+              color="textSecondary"
+              gutterBottom
+            >
+              Thursday
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Edit</Button>
+          </CardActions>
+        </Card>
+      </div>
+      <div className="card5">
+        <Card
+          className="added-card"
+          style={{
+            padding: "20px",
+          }}
+        >
+          <CardContent>
+            <Typography
+              style={{ fontSize: "16px" }}
+              color="textSecondary"
+              gutterBottom
+            >
+              Friday
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Edit</Button>
+          </CardActions>
+        </Card>
+      </div>
+      <div className="card6">
+        <Card
+          className="added-card"
+          style={{
+            padding: "20px",
+          }}
+        >
+          <CardContent>
+            <Typography
+              style={{ fontSize: "16px" }}
+              color="textSecondary"
+              gutterBottom
+            >
+              Saturday
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Edit</Button>
+          </CardActions>
+        </Card>
+      </div>
+      <div className="card7">
+        <Card
+          className="added-card"
+          style={{
+            padding: "20px",
+          }}
+        >
+          <CardContent>
+            <Typography
+              style={{ fontSize: "16px" }}
+              color="textSecondary"
+              gutterBottom
+            >
+              Sunday
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Edit</Button>
+          </CardActions>
+        </Card>
+      </div>
     </div>
   );
 }

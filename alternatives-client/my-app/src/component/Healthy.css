@@ -1,3 +1,51 @@
-.Healthy{
-  background: green;
+.Healthy {
+  position: relative;
+  border-radius: 5px;
+  text-align: center;
+  background: rgb(140, 198, 170);
+  margin: 1rem;
+}
+
+.target-h2 {
+  padding-top: 1rem;
+  padding-bottom: 10px;
+}
+
+.calorie-forms {
+  padding: 0.5rem 1rem 1rem 1rem;
+}
+.target-cal {
+  box-shadow: 1.8px 2px #185c59;
+  text-align: center;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.target-btn {
+  border-radius: 10px;
+  background: #f6f6f6;
+  transition: 0.3s;
+  box-shadow: 3px 4px #185c59;
+  text-align: center;
+  margin-left: 15px;
+  height: 0.94rem;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.target-btn:hover {
+  box-shadow: 0px 0px #f9a5a5;
+}
+
+.cards {
+  margin: 1rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2rem;
+  row-gap: 2rem;
+}
+
+.cards div:hover {
+  transition: transform 0.2s; /* Animation */
+  transform: scale(1.1);
 }

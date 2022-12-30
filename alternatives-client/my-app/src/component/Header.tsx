@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import ButtonAppBar from "./Navbar";
 import { getAuth, signOut } from "firebase/auth";
 import { MdClose } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
+import TemporaryDrawer from "./Navbar";
 
 const Header = () => {
   const auth = getAuth();
@@ -18,7 +19,9 @@ const Header = () => {
   return (
     <>
       <div className="Title">
-        <h1>Alternatives</h1>
+        <div>
+          <h1>Alternatives</h1>
+        </div>
         {/* <button
           className="signout"
           onClick={() => {
@@ -28,27 +31,7 @@ const Header = () => {
         >
           Sign Out
         </button> */}
-        <nav className="navBar">
-          <button onClick={handleToggle}>
-            {navbarOpen ? (
-              <ul className="showMenu">
-                <li>
-                  <a href="/home">Home</a>
-                </li>
-                <li>
-                  <a href="/mylist">My List</a>
-                </li>
-                <li>
-                  <a href="/search">Search</a>
-                </li>
-              </ul>
-            ) : (
-              <FiMenu
-                style={{ color: "#7b7b7b", width: "60px", height: "60px" }}
-              />
-            )}
-          </button>
-        </nav>
+        <TemporaryDrawer />
       </div>
     </>
   );
