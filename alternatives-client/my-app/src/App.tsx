@@ -1,13 +1,13 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./component/Home";
 import Login from "./component/Login";
-import CreateCard from "./component/CreateCard"
 // import SignUp from "./component/SignUp";
 import "./App.css";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "./auth/firebase";
 import AuthRoute from "./component/AuthRoute";
+import Editor from "./component/Editor";
 
 initializeApp(firebaseConfig);
 
@@ -16,6 +16,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/edit" element={<Editor />} />
           <Route
             path="/home"
             element={
@@ -24,8 +26,6 @@ function App() {
               </AuthRoute>
             }
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/login" element={<CreateCard />} />
         </Routes>
       </BrowserRouter>
     </div>

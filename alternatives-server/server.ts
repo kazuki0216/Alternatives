@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
-const { getTest, postTest } = require("./routes/health.controller");
+const { getTest, postTest, getFruit } = require("./routes/health.controller");
 
 dotenv.config();
 
@@ -12,6 +12,7 @@ function setupServer() {
   //middleware
   app.use(express.json());
   app.use(cors());
+  app.get("/fruits", getFruit);
   app.get("/", getTest);
   app.post("/post", postTest);
 

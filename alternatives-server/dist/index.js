@@ -30,7 +30,7 @@ const dotenv = __importStar(require("dotenv"));
 const server_1 = __importDefault(require("./server"));
 dotenv.config();
 let server = (0, server_1.default)();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 (() => {
     try {
         server.listen(port, () => {

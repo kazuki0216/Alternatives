@@ -1,6 +1,9 @@
+.Home {
+  height: 100vh;
+}
 .Healthy {
   position: relative;
-  border-radius: 5px;
+  border-radius: 10px;
   text-align: center;
   background: rgb(140, 198, 170);
   margin: 1rem;

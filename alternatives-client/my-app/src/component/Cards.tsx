@@ -7,13 +7,16 @@ import CardActions from "@material-ui/core/CardActions";
 import AddIcon from "@mui/icons-material/Add";
 
 export default function Cards() {
+  const handleClick = () => {
+    
+  }
   return (
     <div className="cards">
       <div className="card1">
         <Card
           className="added-card"
           style={{
-            padding: "20px",
+            padding: "10px",
           }}
         >
           <CardContent>
@@ -34,7 +37,7 @@ export default function Cards() {
         <Card
           className="added-card"
           style={{
-            padding: "20px",
+            padding: "10px",
           }}
         >
           <CardContent>
@@ -55,7 +58,7 @@ export default function Cards() {
         <Card
           className="added-card"
           style={{
-            padding: "20px",
+            padding: "10px",
           }}
         >
           <CardContent>
@@ -76,7 +79,7 @@ export default function Cards() {
         <Card
           className="added-card"
           style={{
-            padding: "20px",
+            padding: "10px",
           }}
         >
           <CardContent>
@@ -97,7 +100,7 @@ export default function Cards() {
         <Card
           className="added-card"
           style={{
-            padding: "20px",
+            padding: "10px",
           }}
         >
           <CardContent>
@@ -118,7 +121,7 @@ export default function Cards() {
         <Card
           className="added-card"
           style={{
-            padding: "20px",
+            padding: "10px",
           }}
         >
           <CardContent>
@@ -139,7 +142,7 @@ export default function Cards() {
         <Card
           className="added-card"
           style={{
-            padding: "20px",
+            padding: "10px",
           }}
         >
           <CardContent>

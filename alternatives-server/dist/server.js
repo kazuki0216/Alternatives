@@ -7,13 +7,14 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const { getTest, postTest } = require("./routes/health.controller");
+const { getTest, postTest, getFruit } = require("./routes/health.controller");
 dotenv_1.default.config();
 function setupServer() {
     const app = (0, express_1.default)();
     //middleware
     app.use(express_1.default.json());
     app.use((0, cors_1.default)());
+    app.get("/fruits", getFruit);
     app.get("/", getTest);
     app.post("/post", postTest);
     mongoose_1.default.set("strictQuery", false);
