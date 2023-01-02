@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import Header from "./Header";
 
 type nutrition = {
   calories: number;
@@ -24,7 +25,7 @@ const Editor = () => {
 
   useEffect(() => {
     if (fetched === false) {
-        console.log('I did not run!')
+      console.log("I did not run!");
       fetchFruit();
       setFetched(true);
     }
@@ -74,6 +75,7 @@ const Editor = () => {
 
   return (
     <>
+      <Header />
       <button onClick={returnHome}>Return Home</button>
       <h2 className="target-h2">What is your targeted calorie?</h2>
 
