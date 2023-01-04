@@ -13,6 +13,7 @@ function Home() {
       setauthenticated(loggedInUser);
     }
   }, []);
+
   return (
     <div>
       <Header />

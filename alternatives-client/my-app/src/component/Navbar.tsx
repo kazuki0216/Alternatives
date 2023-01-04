@@ -12,10 +12,13 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { FiMenu } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
 type Anchor = "top" | "left" | "bottom" | "right";
 
 export default function TemporaryDrawer() {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleToggle = () => {
     setNavbarOpen(!navbarOpen);
@@ -46,11 +49,15 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Home", "Edit List", "Search"].map((text, index) => (
+        {["home", "edit"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton
+              onClick={() => {
+                navigate(`/${text}`);
+              }}
+            >
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index % 2 === 0 ? <InboxIcon /> : <EditIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>

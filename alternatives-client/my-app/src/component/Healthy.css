@@ -5,7 +5,7 @@
   position: relative;
   border-radius: 10px;
   text-align: center;
-  background: rgb(140, 198, 170);
+  background: #5ea3a3;
   margin: 1rem;
 }
 
@@ -14,9 +14,6 @@
   padding-bottom: 10px;
 }
 
-.calorie-forms {
-  padding: 0.5rem 1rem 1rem 1rem;
-}
 .target-cal {
   box-shadow: 1.8px 2px #185c59;
   text-align: center;
@@ -48,7 +45,14 @@
   row-gap: 2rem;
 }
 
-.cards div:hover {
+.added-card:hover {
   transition: transform 0.2s; /* Animation */
   transform: scale(1.1);
+}
+
+.editpencil {
+  transform: none !important;
+}
+.editIcon:hover {
+  color: #f9a5a5;
 }

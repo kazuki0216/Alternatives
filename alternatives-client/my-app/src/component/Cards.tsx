@@ -5,13 +5,15 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import AddIcon from "@mui/icons-material/Add";
+import { useContext } from "react";
+import AppContext from "./AppContext";
 
 export default function Cards() {
-  const handleClick = () => {
-    
-  }
+  const value = useContext(AppContext);
+  const { calorie } = value;
   return (
     <div className="cards">
+      <p>{calorie.current}</p>
       <div className="card1">
         <Card
           className="added-card"
@@ -26,6 +28,7 @@ export default function Cards() {
               gutterBottom
             >
               Monday
+              <p>{calorie.current}</p>
             </Typography>
           </CardContent>
           <CardActions>
@@ -47,6 +50,7 @@ export default function Cards() {
               gutterBottom
             >
               Tuesday
+              <p>{calorie.current}</p>
             </Typography>
           </CardContent>
           <CardActions>
@@ -68,6 +72,7 @@ export default function Cards() {
               gutterBottom
             >
               Wednesday
+              <p>{calorie.current}</p>
             </Typography>
           </CardContent>
           <CardActions>
@@ -89,6 +94,7 @@ export default function Cards() {
               gutterBottom
             >
               Thursday
+              <p>{calorie.current}</p>
             </Typography>
           </CardContent>
           <CardActions>
@@ -110,6 +116,7 @@ export default function Cards() {
               gutterBottom
             >
               Friday
+              <p>{calorie.current}</p>
             </Typography>
           </CardContent>
           <CardActions>
@@ -131,6 +138,7 @@ export default function Cards() {
               gutterBottom
             >
               Saturday
+              <p>{calorie.current}</p>
             </Typography>
           </CardContent>
           <CardActions>
@@ -152,6 +160,7 @@ export default function Cards() {
               gutterBottom
             >
               Sunday
+              <p>{calorie.current}</p>
             </Typography>
           </CardContent>
           <CardActions>
