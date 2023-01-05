@@ -8,11 +8,14 @@ import mockdata from "../Mockdata/mockdata";
 import "./Editor.css";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { Apple } from "@mui/icons-material";
 
 interface props {
   days: string[];
   healthyOption: data[];
   setHealthyOption: (fruitObject: data[]) => void;
+  setAllObjects: (addedFruit: data[][]) => void;
+  allObjects: data[][];
 }
 
 const EditorCard: React.FC<props> = (props: props) => {
@@ -22,12 +25,14 @@ const EditorCard: React.FC<props> = (props: props) => {
   );
   const value = useContext(AppContext);
   const { calorie, clickedCardIndex } = value;
-  const { days, healthyOption, setHealthyOption } = props;
+  const { days, healthyOption, setHealthyOption, setAllObjects, allObjects } =
+    props;
   const [addedFruit, setAddedFruit] = useState<data[]>([]);
   const [isCalorieBoolean, setCalorieBoolean] = useState<boolean>(false);
   const [fetched, setFetched] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log(clickedCardIndex.current);
     if (!fetched) {
       setHealthyOption(mockdata);
       setFetched(true);
@@ -58,6 +63,18 @@ const EditorCard: React.FC<props> = (props: props) => {
   //     );
   //   }
   // );
+
+  const patchRequest = async () => {
+    const newAllObject: any = [...allObjects];
+    newAllObject[clickedCardIndex.current] = addedFruit;
+    // newAllObject.splice(clickedCardIndex.current, 0, addedFruit);
+    console.log(newAllObject);
+    setAllObjects(newAllObject);
+    console.log(allObjects);
+    // setAllObjects(currentList);
+    // await axios.patch("http://localhost:4000", addedFruit);
+  };
+
   const setTargetCalorie = () => {
     if (calorie.current[clickedCardIndex.current] === 0) {
       alert("Please insert a target calorie!");
@@ -153,7 +170,7 @@ const EditorCard: React.FC<props> = (props: props) => {
         <h3>{days[clickedCardIndex.current]}</h3>
         <h4>{displayClickedList}</h4>
       </div>
-      <button>Patch Request</button>
+      <button onClick={patchRequest}>Patch Request</button>
     </>
   );
 };

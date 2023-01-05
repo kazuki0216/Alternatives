@@ -32,7 +32,6 @@ const Healthy = () => {
   }, []);
 
   const editCard = () => {
-    console.log("navigate to editor.");
     navigate("/edit");
   };
 

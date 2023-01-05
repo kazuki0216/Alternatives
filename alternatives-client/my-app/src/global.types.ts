@@ -3,9 +3,9 @@ export interface healthList {
 }
 
 export type data = {
+  id?: number;
   genus?: string;
   name: string;
-  id?: number;
   family?: string;
   order?: string;
   nutritions: nutrition;
