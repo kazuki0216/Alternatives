@@ -5,11 +5,11 @@ export class FruitSchema {
   id?: number;
   family?: string;
   order?: string;
-  nutrition: nutrition;
+  nutritions: nutrition;
 
   public constructor() {
     this.name = "test";
-    this.nutrition = {
+    this.nutritions = {
       calories: 0,
       carbohydrates: 0,
       fat: 0,

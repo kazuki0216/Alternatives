@@ -13,7 +13,7 @@ input {
 
 label {
   position: absolute;
-  
+
   color: #706e6e;
   pointer-events: none;
   transform: translateY(1rem);
@@ -29,5 +29,17 @@ input:focus ~ label {
   transform: translateY(-50%) scale(0.8);
   background-color: #0202;
   padding: 0 0.2em;
+  color: #2196f3;
+}
+
+.healthy-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.editor-card {
+  border: 5px solid black;
+}
+.editcard-list ul {
   color: #2196f3;
 }

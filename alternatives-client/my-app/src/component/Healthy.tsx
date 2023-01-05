@@ -18,7 +18,7 @@ const Healthy = () => {
   const value = useContext(AppContext);
   const { calorie, clickedCardIndex } = value;
   let card: any = [];
-  const days = [
+  const days: string[] = [
     "Monday",
     "Tuesday",
     "Wednesday",
@@ -65,7 +65,7 @@ const Healthy = () => {
         )}
         <CardActions className="editpencil">
           <EditIcon
-          className="editIcon"
+            className="editIcon"
             onClick={() => {
               clickedCardIndex.current = i;
               editCard();

@@ -14,6 +14,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import { FiMenu } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
+import HomeIcon from "@mui/icons-material/Home";
 type Anchor = "top" | "left" | "bottom" | "right";
 
 export default function TemporaryDrawer() {
@@ -57,7 +58,7 @@ export default function TemporaryDrawer() {
               }}
             >
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <EditIcon />}
+                {index % 2 === 0 ? <HomeIcon /> : <EditIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
