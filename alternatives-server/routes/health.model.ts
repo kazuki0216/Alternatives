@@ -2,12 +2,19 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const selectedFood = new Schema({
-  list: String,
-  healthFood: [
+  index: Number,
+  fruitName: [
     new Schema({
-      id: Number,
-      ingridientName: String,
-      calories: Number,
+      name: String,
+      nutritions: [
+        {
+          carbohydrates: Number,
+          protein: Number,
+          fat: Number,
+          calories: Number,
+          sugar: Number,
+        },
+      ],
     }),
   ],
   totalCalories: Number,

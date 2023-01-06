@@ -6,16 +6,13 @@ import { data } from "../global.types";
 import { nutrition } from "../types/global";
 import mockdata from "../Mockdata/mockdata";
 import "./Editor.css";
-import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { Apple } from "@mui/icons-material";
+import { FoodObject } from "../global.types";
 
 interface props {
   days: string[];
   healthyOption: data[];
   setHealthyOption: (fruitObject: data[]) => void;
-  setAllObjects: (addedFruit: data[][]) => void;
-  allObjects: data[][];
 }
 
 const EditorCard: React.FC<props> = (props: props) => {
@@ -24,20 +21,42 @@ const EditorCard: React.FC<props> = (props: props) => {
     null
   );
   const value = useContext(AppContext);
-  const { calorie, clickedCardIndex } = value;
-  const { days, healthyOption, setHealthyOption, setAllObjects, allObjects } =
-    props;
+  const { calorie, clickedCardIndex, fruitSchemaArray } = value;
+  const { days, healthyOption, setHealthyOption } = props;
   const [addedFruit, setAddedFruit] = useState<data[]>([]);
+  const fruitObject = useRef<FoodObject | null>(null);
   const [isCalorieBoolean, setCalorieBoolean] = useState<boolean>(false);
   const [fetched, setFetched] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(clickedCardIndex.current);
     if (!fetched) {
       setHealthyOption(mockdata);
       setFetched(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (fruitSchemaArray.current[clickedCardIndex.current]) {
+      setAddedFruit(
+        fruitSchemaArray.current[clickedCardIndex.current].current.fruit
+      );
+      setTotalCalories(
+        fruitSchemaArray.current[clickedCardIndex.current].current.totalCalories
+      );
+      if (
+        fruitSchemaArray.current[clickedCardIndex.current].current
+          .userSetCalories
+      ) {
+        calorie.current =
+          fruitSchemaArray.current[
+            clickedCardIndex.current
+          ].current.userSetCalories;
+      }
+    }
+  }, [fruitSchemaArray]);
+
+  useEffect(() => {}, []);
 
   const settingCalories = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -48,31 +67,21 @@ const EditorCard: React.FC<props> = (props: props) => {
     setTotalCalories(totalCalories + parseInt(element.innerText.split(" ")[2]));
   };
 
-  // const fruitInfo = addedFruit.current.map(
-  //   (fruit: { name: string; nutrition: nutrition }, index) => {
-  //     return (
-  //       <div
-  //         className="fruit"
-  //         onClick={(e) => {
-  //           settingCalories(e);
-  //         }}
-  //         key={index}
-  //       >
-  //         {fruit.name} : {fruit.nutrition.calories} kcal
-  //       </div>
-  //     );
-  //   }
-  // );
-
   const patchRequest = async () => {
-    const newAllObject: any = [...allObjects];
-    newAllObject[clickedCardIndex.current] = addedFruit;
-    // newAllObject.splice(clickedCardIndex.current, 0, addedFruit);
-    console.log(newAllObject);
-    setAllObjects(newAllObject);
-    console.log(allObjects);
-    // setAllObjects(currentList);
-    // await axios.patch("http://localhost:4000", addedFruit);
+    fruitObject.current = {
+      index: clickedCardIndex.current,
+      fruit: addedFruit,
+      totalCalories: totalCalories,
+      userSetCalorie: calorie,
+    };
+    const newPostObject: any = [...fruitSchemaArray.current];
+    newPostObject[clickedCardIndex.current] = fruitObject;
+    fruitSchemaArray.current = newPostObject;
+    await axios.patch(
+      "http://localhost:4000/post/edit",
+      fruitSchemaArray.current
+    );
+    navigate("/home");
   };
 
   const setTargetCalorie = () => {

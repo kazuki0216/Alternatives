@@ -37,6 +37,13 @@ const getFruit = async (req: Request, res: Response) => {
   }
 };
 
+const patchFruit = async (req: Request, res: Response) => {
+  const queryIndex = req.body.index;
+  let result = await selectedFood.find({
+    index: queryIndex,
+  });
+};
+
 module.exports = {
   getTest,
   postTest,

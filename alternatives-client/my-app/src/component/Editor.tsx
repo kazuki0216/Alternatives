@@ -9,11 +9,12 @@ import { FruitSchema } from "../Helper/FoodSchema";
 import EditorCard from "./EditorCard";
 import { data } from "../global.types";
 import { nutrition } from "../types/global";
-type ObjectArray = data[][];
+type ObjectArray = data[];
+//all object is fruitObject
 
 const Editor = () => {
   const fruitObject = useRef<data[]>([]);
-  const [allObjects, setAllObjects] = useState<ObjectArray>([]);
+  const [postObjects, setPostObjects] = useState<ObjectArray>([]);
   const [totalCalories, setTotalCalories] = useState<number>(0);
   const [userTargetCalorie, setUserTargetedCalorie] = useState<number | null>(
     null
@@ -55,17 +56,6 @@ const Editor = () => {
   //     .then((response) => setHealthyOption(response.data));
   // };
 
-  const settingCalories = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    event.preventDefault();
-    console.log("Fruit is clicked");
-    const element = event.target as HTMLElement;
-    const text = element.innerText;
-    setTotalCalories(totalCalories + parseInt(element.innerText.split(" ")[2]));
-    console.log(totalCalories);
-  };
-
   const returnHome = () => {
     navigate("/home");
   };
@@ -79,8 +69,6 @@ const Editor = () => {
         days={days}
         healthyOption={healthyOption}
         setHealthyOption={setHealthyOption}
-        allObjects={allObjects}
-        setAllObjects={setAllObjects}
       />
     </>
   );

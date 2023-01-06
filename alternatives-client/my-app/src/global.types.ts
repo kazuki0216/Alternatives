@@ -2,6 +2,12 @@ export interface healthList {
   list: String;
 }
 
+export type FoodObject = {
+  index: number;
+  fruit: data[];
+  totalCalories: number;
+  userSetCalorie: number;
+};
 export type data = {
   id?: number;
   genus?: string;
