@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import AppContext from "./AppContext";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -9,13 +10,15 @@ const Login = (props: any) => {
   const auth = getAuth();
   const navigate = useNavigate();
   const [authing, setAuthing] = useState(false);
+  const value = useContext(AppContext);
+  const { uId } = value;
 
   const signInWithGoogle = async () => {
     setAuthing(true);
 
     signInWithPopup(auth, new GoogleAuthProvider())
       .then((response) => {
-        console.log(response.user.uid);
+        uId.current = response.user.uid;
         navigate("/home");
       })
       .catch((error) => {

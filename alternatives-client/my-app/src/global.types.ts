@@ -5,9 +5,10 @@ export interface healthList {
 export type FoodObject = {
   index: number;
   fruit: data[];
-  totalCalories: number;
-  userSetCalorie: number;
+  totalCalorie: number;
+  userTargetedCalorie: number;
 };
+
 export type data = {
   id?: number;
   genus?: string;

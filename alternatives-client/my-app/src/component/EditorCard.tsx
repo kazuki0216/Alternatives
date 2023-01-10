@@ -6,8 +6,8 @@ import { data } from "../global.types";
 import { nutrition } from "../types/global";
 import mockdata from "../Mockdata/mockdata";
 import "./Editor.css";
-import RemoveIcon from "@mui/icons-material/Remove";
 import { FoodObject } from "../global.types";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 interface props {
   days: string[];
@@ -16,71 +16,93 @@ interface props {
 }
 
 const EditorCard: React.FC<props> = (props: props) => {
-  const [totalCalories, setTotalCalories] = useState<number>(0);
-  const [userTargetCalorie, setUserTargetedCalorie] = useState<number | null>(
-    null
-  );
   const value = useContext(AppContext);
-  const { calorie, clickedCardIndex, fruitSchemaArray } = value;
+  const {
+    calorie,
+    clickedCardIndex,
+    fruitSchemaArray,
+    allUserSelectedFruit,
+    userTargetCalorie,
+    setUserTargetedCalorie,
+    calorieCollection,
+    uId,
+  } = value;
   const { days, healthyOption, setHealthyOption } = props;
   const [addedFruit, setAddedFruit] = useState<data[]>([]);
   const fruitObject = useRef<FoodObject | null>(null);
+  const [totalCalorie, setTotalCalorie] = useState<number>(0);
   const [isCalorieBoolean, setCalorieBoolean] = useState<boolean>(false);
   const [fetched, setFetched] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(totalCalorie);
     if (!fetched) {
       setHealthyOption(mockdata);
       setFetched(true);
     }
   }, []);
 
+  // useEffect(() => {
+  //   if (allUserSelectedFruit[clickedCardIndex.current]) {
+  //     setAddedFruit(allUserSelectedFruit[clickedCardIndex.current]);
+  //   }
+  //   console.log(addedFruit);
+  // }, []);
+
   useEffect(() => {
-    if (fruitSchemaArray.current[clickedCardIndex.current]) {
-      setAddedFruit(
-        fruitSchemaArray.current[clickedCardIndex.current].current.fruit
-      );
-      setTotalCalories(
-        fruitSchemaArray.current[clickedCardIndex.current].current.totalCalories
-      );
-      if (
-        fruitSchemaArray.current[clickedCardIndex.current].current
-          .userSetCalories
-      ) {
-        calorie.current =
-          fruitSchemaArray.current[
-            clickedCardIndex.current
-          ].current.userSetCalories;
+    if (allUserSelectedFruit.current[clickedCardIndex.current]) {
+      setAddedFruit(allUserSelectedFruit.current[clickedCardIndex.current]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (calorie.current[clickedCardIndex.current]) {
+      setUserTargetedCalorie(calorie.current[clickedCardIndex.current]);
+    }
+  }, []);
+
+  useEffect(() => {
+    // console.log(calorieCollection.current[clickedCardIndex.current]);
+    if (calorieCollection.current[clickedCardIndex.current]) {
+      setTotalCalorie(calorieCollection.current[clickedCardIndex.current]);
+    }
+  }, []);
+
+  useEffect(() => {
+    // console.log("total fruits:", totalCalorie);
+
+    if (userTargetCalorie !== null) {
+      if (userTargetCalorie < totalCalorie) {
+        window.alert("You went over the targeted calorie!!!");
       }
     }
-  }, [fruitSchemaArray]);
+  }, [totalCalorie]);
 
-  useEffect(() => {}, []);
-
-  const settingCalories = (
+  const settingCalorie = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     event.preventDefault();
     const element = event.target as HTMLElement;
     const text = element.innerText;
-    setTotalCalories(totalCalories + parseInt(element.innerText.split(" ")[2]));
+    setTotalCalorie(totalCalorie + parseInt(element.innerText.split(" ")[2]));
   };
 
   const patchRequest = async () => {
     fruitObject.current = {
       index: clickedCardIndex.current,
       fruit: addedFruit,
-      totalCalories: totalCalories,
-      userSetCalorie: calorie,
+      totalCalorie: totalCalorie,
+      userTargetedCalorie: calorie,
     };
     const newPostObject: any = [...fruitSchemaArray.current];
     newPostObject[clickedCardIndex.current] = fruitObject;
     fruitSchemaArray.current = newPostObject;
-    await axios.patch(
-      "http://localhost:4000/post/edit",
-      fruitSchemaArray.current
-    );
+    console.log(fruitSchemaArray.current);
+    // await axios.patch(
+    //   `http://localhost:4000/post/edit/${uId}`,
+    //   fruitSchemaArray.current
+    // );
     navigate("/home");
   };
 
@@ -112,16 +134,22 @@ const EditorCard: React.FC<props> = (props: props) => {
                 nutritions: fruit.nutritions,
               },
             ]);
-            settingCalories(e);
+            allUserSelectedFruit.current[clickedCardIndex.current].push({
+              name: fruit.name,
+              nutritions: fruit.nutritions,
+            });
+            settingCalorie(e);
             // console.log(addedFruit.current);
           }}
           key={index}
         >
-          <ul>
-            <li>
-              {fruit.name} : {fruit.nutritions.calories} kcal
-            </li>
-          </ul>
+          <div className="fruit-list">
+            <ul>
+              <li>
+                {fruit.name} : {fruit.nutritions.calories} kcal
+              </li>
+            </ul>
+          </div>
         </div>
       );
     }
@@ -131,16 +159,12 @@ const EditorCard: React.FC<props> = (props: props) => {
     (fruit: { name: string; nutritions: nutrition }, index) => {
       return (
         <div className="editcard-list" key={index}>
-          <ul>
-            <li>
-              {fruit.name} : {fruit.nutritions.calories} kcal
-            </li>
-          </ul>
-          <RemoveIcon
+          ・{fruit.name} : {fruit.nutritions.calories} kcal
+          <RemoveCircleOutlineIcon
+            className="remove-btn"
             onClick={(e) => {
-              setTotalCalories(totalCalories - fruit.nutritions.calories);
+              setTotalCalorie(totalCalorie - fruit.nutritions.calories);
               removeItem(index);
-              console.log(addedFruit);
             }}
           />
         </div>
@@ -150,36 +174,62 @@ const EditorCard: React.FC<props> = (props: props) => {
 
   return (
     <>
-      {!calorie.current[clickedCardIndex.current] ? (
-        <>
-          <div className="calorie-forms">
-            <input
-              className="target-cal"
-              type="number"
-              placeholder="input target calorie"
-              onChange={(e) => {
-                setUserTargetedCalorie(Number(e.target.value));
-              }}
-            />
+      <div className="EditorCard">
+        {!calorie.current[clickedCardIndex.current] ? (
+          <>
+            <div className="calorie-forms">
+              <input
+                className="target-cal"
+                type="number"
+                placeholder="input target calorie"
+                onChange={(e) => {
+                  setUserTargetedCalorie(Number(e.target.value));
+                }}
+              />
 
-            <button className="target-btn" onClick={setTargetCalorie}>
-              set
-            </button>
+              <button className="target-btn" onClick={setTargetCalorie}>
+                set
+              </button>
+            </div>
+          </>
+        ) : (
+          <h3>{calorie.current[clickedCardIndex.current]} kcal</h3>
+        )}
+        <button
+          className="reset-btn"
+          onClick={() => {
+            setCalorieBoolean(false);
+            calorie.current[clickedCardIndex.current] = null;
+          }}
+        >
+          Reset
+        </button>
+        <div className="outer-grid">
+          <div className="healthy-container">
+            <h2>Fruit List</h2>
+            {fruitInfo}
           </div>
-        </>
-      ) : (
-        <h3>{calorie.current[clickedCardIndex.current]} kcal</h3>
-      )}
-      <div className="outer-grid">
-        <div className="healthy-container">{fruitInfo}</div>
+          <div className="editor-card">
+            <div className="card-header">
+              <h2>Wednesday</h2>
+              <h2
+                style={{
+                  color:
+                    userTargetCalorie === null ||
+                    totalCalorie < userTargetCalorie
+                      ? "green"
+                      : "red",
+                }}
+              >
+                {totalCalorie} calories
+              </h2>
+            </div>
+            {/* <h3>{days[clickedCardIndex.current]}</h3> */}
+            {displayClickedList}
+          </div>
+        </div>
       </div>
-      <h2>+ Editor Card</h2>
-      <div className="editor-card">
-        <h2>{totalCalories} calories</h2>
-        <h3>{days[clickedCardIndex.current]}</h3>
-        <h4>{displayClickedList}</h4>
-      </div>
-      <button onClick={patchRequest}>Patch Request</button>
+      <button onClick={patchRequest}>Save</button>
     </>
   );
 };

@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from "express";
+import selectedFood from "./routes/health.model";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -18,9 +19,9 @@ function setupServer() {
   app.use(express.json());
   app.use(cors());
   app.get("/fruits", getFruit);
-  app.get("/", getTest);
+  app.get("/home/:uId", getTest);
   app.post("/post", postTest);
-  app.patch("/post/edit", patchFruit);
+  app.patch("/post/edit/:uId", patchFruit);
 
   mongoose.set("strictQuery", false);
   mongoose.connect("mongodb://localhost:27017/alternatives");

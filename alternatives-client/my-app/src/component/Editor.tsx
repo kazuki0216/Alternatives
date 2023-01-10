@@ -34,11 +34,14 @@ const Editor = () => {
   ];
 
   const navigate = useNavigate();
+  const getUserList = async () => {
+    await axios.get("http://localhost:4000/user/fruit").then();
+  };
 
   useEffect(() => {
     if (fruitObject.current[0] === undefined) {
       fruitObject.current.push(fruitSchema);
-      console.log(fruitObject.current[0]);
+      // console.log(fruitObject.current[0]);
     }
   }, []);
 
@@ -64,7 +67,6 @@ const Editor = () => {
     <>
       <Header />
       <h2>{days[clickedCardIndex.current]}</h2>
-      <h2 className="target-h2">What is your targeted calorie?</h2>
       <EditorCard
         days={days}
         healthyOption={healthyOption}

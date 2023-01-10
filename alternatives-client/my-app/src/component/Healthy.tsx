@@ -10,13 +10,27 @@ import CardActions from "@material-ui/core/CardActions";
 import { useContext } from "react";
 import AppContext from "./AppContext";
 import EditIcon from "@mui/icons-material/Edit";
+import { data } from "../global.types";
+import { create } from "@material-ui/core/styles/createTransitions";
 
 const Healthy = () => {
-  const [isClicked, setIsClicked] = useState<Boolean>(true);
-
   const navigate = useNavigate();
   const value = useContext(AppContext);
-  const { calorie, clickedCardIndex } = value;
+  const {
+    calorie,
+    clickedCardIndex,
+    uId,
+    addedFruit,
+    setAddedFruit,
+    allUserSelectedFruit,
+    setAllUserSelectedFruit,
+    userTargetCalorie,
+    setUserTargetedCalorie,
+    calorieCollection,
+    setCalorieCollection,
+    mounted,
+    setMounted,
+  } = value;
   let card: any = [];
   const days: string[] = [
     "Monday",
@@ -28,13 +42,37 @@ const Healthy = () => {
     "Sunday",
   ];
   useEffect(() => {
-    console.log(calorie.current);
+    if (mounted === false) {
+      getUsersCard();
+    }
+  }, [mounted]);
+
+  useEffect(() => {
+    console.log(allUserSelectedFruit);
   }, []);
+  const getUsersCard = async () => {
+    await axios
+      //.get(`http://localhost:4000/home/dFbVjq18x1TfeRc8wdnRffM7nqq1`)
+      .get(`http://localhost:4000/home/${uId.current}`)
+      .then((response) => {
+        const fruitArray = response.data[0].fruitSchema;
+        console.log(fruitArray);
+        for (let i = 0; i < fruitArray.length; i++) {
+          calorie.current.push(fruitArray[i].userTargetedCalorie);
+          allUserSelectedFruit.current.push(fruitArray[i].fruit);
+          calorieCollection.current.push(fruitArray[i].totalCalorie);
+          // console.log(calorieCollection.current);
+        }
+      });
+    console.log(calorie.current);
+    console.log(allUserSelectedFruit.current);
+    console.log(calorieCollection.current);
+    setMounted(true);
+  };
 
   const editCard = () => {
     navigate("/edit");
   };
-
   for (let i = 0; i < 7; i++) {
     card.push(
       <Card
