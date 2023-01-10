@@ -26,6 +26,8 @@ const EditorCard: React.FC<props> = (props: props) => {
     setUserTargetedCalorie,
     calorieCollection,
     uId,
+    fetchedObject,
+    setFetchedObject,
   } = value;
   const { days, healthyOption, setHealthyOption } = props;
   const [addedFruit, setAddedFruit] = useState<data[]>([]);
@@ -36,42 +38,39 @@ const EditorCard: React.FC<props> = (props: props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(totalCalorie);
     if (!fetched) {
       setHealthyOption(mockdata);
       setFetched(true);
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (allUserSelectedFruit[clickedCardIndex.current]) {
-  //     setAddedFruit(allUserSelectedFruit[clickedCardIndex.current]);
-  //   }
-  //   console.log(addedFruit);
-  // }, []);
-
   useEffect(() => {
     if (allUserSelectedFruit.current[clickedCardIndex.current]) {
-      setAddedFruit(allUserSelectedFruit.current[clickedCardIndex.current]);
+      const selectedFruit =
+        allUserSelectedFruit.current[clickedCardIndex.current];
+      setAddedFruit(selectedFruit);
+      console.log(selectedFruit);
     }
   }, []);
 
   useEffect(() => {
     if (calorie.current[clickedCardIndex.current]) {
-      setUserTargetedCalorie(calorie.current[clickedCardIndex.current]);
+      const targetCalorie = calorie.current[clickedCardIndex.current];
+      console.log(targetCalorie);
+      setUserTargetedCalorie(targetCalorie);
     }
   }, []);
 
   useEffect(() => {
-    // console.log(calorieCollection.current[clickedCardIndex.current]);
+    console.log(calorieCollection.current);
     if (calorieCollection.current[clickedCardIndex.current]) {
-      setTotalCalorie(calorieCollection.current[clickedCardIndex.current]);
+      const totalCalorie = calorieCollection.current[clickedCardIndex.current];
+      console.log(totalCalorie);
+      setTotalCalorie(totalCalorie);
     }
   }, []);
 
   useEffect(() => {
-    // console.log("total fruits:", totalCalorie);
-
     if (userTargetCalorie !== null) {
       if (userTargetCalorie < totalCalorie) {
         window.alert("You went over the targeted calorie!!!");
@@ -89,20 +88,21 @@ const EditorCard: React.FC<props> = (props: props) => {
   };
 
   const patchRequest = async () => {
+    calorieCollection.current[clickedCardIndex.current] = totalCalorie;
+    allUserSelectedFruit.current[clickedCardIndex.current] = addedFruit;
     fruitObject.current = {
       index: clickedCardIndex.current,
       fruit: addedFruit,
       totalCalorie: totalCalorie,
-      userTargetedCalorie: calorie,
+      userTargetedCalorie: userTargetCalorie,
     };
-    const newPostObject: any = [...fruitSchemaArray.current];
-    newPostObject[clickedCardIndex.current] = fruitObject;
-    fruitSchemaArray.current = newPostObject;
-    console.log(fruitSchemaArray.current);
-    // await axios.patch(
-    //   `http://localhost:4000/post/edit/${uId}`,
-    //   fruitSchemaArray.current
-    // );
+    fetchedObject.current.fruitSchema[clickedCardIndex.current] =
+      fruitObject.current;
+    const newPostObj = fetchedObject.current;
+    console.log(newPostObj);
+    await axios.patch(`http://localhost:4000/post/edit/${uId.current}`, {
+      newPostObj,
+    });
     navigate("/home");
   };
 
@@ -134,10 +134,6 @@ const EditorCard: React.FC<props> = (props: props) => {
                 nutritions: fruit.nutritions,
               },
             ]);
-            allUserSelectedFruit.current[clickedCardIndex.current].push({
-              name: fruit.name,
-              nutritions: fruit.nutritions,
-            });
             settingCalorie(e);
             // console.log(addedFruit.current);
           }}

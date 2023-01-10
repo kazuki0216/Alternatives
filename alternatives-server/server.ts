@@ -5,7 +5,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 const {
   getTest,
-  postTest,
+  postRequest,
   getFruit,
   patchFruit,
 } = require("./routes/health.controller");
@@ -20,7 +20,7 @@ function setupServer() {
   app.use(cors());
   app.get("/fruits", getFruit);
   app.get("/home/:uId", getTest);
-  app.post("/post", postTest);
+  app.post("/post", postRequest);
   app.patch("/post/edit/:uId", patchFruit);
 
   mongoose.set("strictQuery", false);

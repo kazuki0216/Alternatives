@@ -6,6 +6,8 @@ const selectedFood = new Schema({
   fruitSchema: [
     new Schema({
       index: Number,
+      totalCalorie: Number,
+      userTargetedCalorie: Number,
       fruit: [
         new Schema({
           name: String,
@@ -18,9 +20,6 @@ const selectedFood = new Schema({
           }),
         }),
       ],
-      totalCalorie: Number,
-      userTargetedCalorie: Number,
-      dateCreated: { type: Date, default: Date.now },
     }),
   ],
 });

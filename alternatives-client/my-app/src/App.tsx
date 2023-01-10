@@ -15,6 +15,12 @@ import axios from "axios";
 
 initializeApp(firebaseConfig);
 
+type fetchedObject = {
+  fruitSchema: data[];
+  uId: string;
+  _id?: string;
+};
+
 function App() {
   const uId = useRef<number | string>("");
   const calorie = useRef<number[]>([]);
@@ -27,6 +33,7 @@ function App() {
   const [userTargetCalorie, setUserTargetedCalorie] = useState<number | null>(
     null
   );
+  const fetchedObject = useRef<fetchedObject | {}>({});
 
   const getUserFruit = async () => {
     await axios
@@ -48,6 +55,7 @@ function App() {
         calorieCollection: calorieCollection,
         mounted: mounted,
         setMounted,
+        fetchedObject: fetchedObject,
       }}
     >
       <div className="App">

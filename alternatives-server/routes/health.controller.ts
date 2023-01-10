@@ -3,23 +3,22 @@ import { Request, Response } from "express";
 import axios from "axios";
 
 const getTest = async (req: Request, res: Response) => {
-  console.log("hello");
+  console.log("gettest");
   const uId = req.params.uId;
+  console.log(uId);
   try {
     const getResult = await selectedFood.find({
       uId: uId,
     });
-    console.log(getResult);
     res.send(getResult).status(200);
+    console.log(getResult);
   } catch (err) {
     res.send(err).status(500);
   }
 };
 
-const postTest = async (req: Request, res: Response) => {
-  console.log("hello I'm post");
-  console.log(req.body);
-  let { uId, fruitSchema, totalCalorie, userTargetedCalorie } = req.body;
+const postRequest = async (req: Request, res: Response) => {
+  let { uId, fruitSchema } = req.body;
   try {
     const newList = new selectedFood({
       uId,
@@ -39,25 +38,26 @@ const getFruit = async (req: Request, res: Response) => {
       .then((response) => response.data);
 
     res.send(result).status(200);
+    console.log(result);
   } catch (error) {
     res.send(error).status(500);
   }
 };
 
 const patchFruit = async (req: Request, res: Response) => {
-  const uId = req.params.uId;
-  const updates = req.body;
+  console.log("Patch Request ran!");
+  const { uId, index } = req.params;
+  const updates = req.body.newPostObj;
+  console.log(updates);
   try {
-    await selectedFood
-      .updateOne(
-        {
-          uId: uId,
-        },
-        { $set: updates }
-      )
-      .then((result) => {
-        res.status(200).send(result);
-      });
+    const patchData = await selectedFood.updateOne(
+      {
+        uId: uId,
+      },
+      { $set: updates }
+    );
+    console.log(patchData);
+    res.status(200).send(patchData);
   } catch (err) {
     res.send(err).status(500);
   }
@@ -65,6 +65,7 @@ const patchFruit = async (req: Request, res: Response) => {
 
 module.exports = {
   getTest,
-  postTest,
+  postRequest,
   getFruit,
+  patchFruit,
 };

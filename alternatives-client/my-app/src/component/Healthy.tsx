@@ -13,6 +13,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import { data } from "../global.types";
 import { create } from "@material-ui/core/styles/createTransitions";
 
+type fetchedObject = {
+  fruitSchema: data[];
+  uId: string;
+  _id?: string;
+};
+
 const Healthy = () => {
   const navigate = useNavigate();
   const value = useContext(AppContext);
@@ -20,16 +26,11 @@ const Healthy = () => {
     calorie,
     clickedCardIndex,
     uId,
-    addedFruit,
-    setAddedFruit,
     allUserSelectedFruit,
-    setAllUserSelectedFruit,
-    userTargetCalorie,
-    setUserTargetedCalorie,
     calorieCollection,
-    setCalorieCollection,
     mounted,
     setMounted,
+    fetchedObject,
   } = value;
   let card: any = [];
   const days: string[] = [
@@ -42,32 +43,27 @@ const Healthy = () => {
     "Sunday",
   ];
   useEffect(() => {
+    console.log(calorieCollection.current);
     if (mounted === false) {
       getUsersCard();
     }
   }, [mounted]);
 
-  useEffect(() => {
-    console.log(allUserSelectedFruit);
-  }, []);
   const getUsersCard = async () => {
     await axios
-      //.get(`http://localhost:4000/home/dFbVjq18x1TfeRc8wdnRffM7nqq1`)
       .get(`http://localhost:4000/home/${uId.current}`)
       .then((response) => {
+        const object = response.data[0];
         const fruitArray = response.data[0].fruitSchema;
-        console.log(fruitArray);
+        fetchedObject.current = object;
         for (let i = 0; i < fruitArray.length; i++) {
-          calorie.current.push(fruitArray[i].userTargetedCalorie);
           allUserSelectedFruit.current.push(fruitArray[i].fruit);
+          calorie.current.push(fruitArray[i].userTargetedCalorie);
           calorieCollection.current.push(fruitArray[i].totalCalorie);
-          // console.log(calorieCollection.current);
         }
       });
-    console.log(calorie.current);
-    console.log(allUserSelectedFruit.current);
-    console.log(calorieCollection.current);
     setMounted(true);
+    console.log(fetchedObject.current);
   };
 
   const editCard = () => {
