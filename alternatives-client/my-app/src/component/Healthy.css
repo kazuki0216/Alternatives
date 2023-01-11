@@ -7,6 +7,7 @@
   text-align: center;
   background: #0093af;
   margin: 1rem;
+  box-shadow: 6px 6px 18px #185c59;
 }
 .cards {
   margin: 1rem 2rem;
@@ -19,6 +20,7 @@
 }
 .cards div {
   /* height: 250px; */
+  margin-bottom: 20px;
   flex: 1 1 150px;
 }
 .cards p {
@@ -62,4 +64,31 @@
 }
 .editIcon:hover {
   color: #f9a5a5;
+}
+
+.popper > * {
+  max-height: 300px;
+}
+
+.list-display {
+  margin-top: 5%;
+}
+.singleCard {
+  overflow-y: auto;
+  border: 3px solid black;
+  border-radius: 55px 55px 50px 50px;
+  margin: auto;
+  width: 50%;
+  height: 400px;
+}
+.list-display h2 {
+  border-radius: 50px 50px 0px 0px;
+  border: solid black;
+  background-color: #34bcd8;
+  padding: 5%;
+}
+.fruit-calorie {
+  padding: 2%;
+  margin: 2% 2% 2% 4%;
+  text-decoration: underline;
 }

@@ -196,6 +196,7 @@ const EditorCard: React.FC<props> = (props: props) => {
               className="target-btn"
               onClick={() => {
                 calorie.current[clickedCardIndex.current] = null;
+                setUserTargetedCalorie(null);
                 setCalorieBoolean(false);
               }}
             >

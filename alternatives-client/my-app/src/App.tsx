@@ -12,6 +12,7 @@ import AppContext from "./component/AppContext";
 import { click } from "@testing-library/user-event/dist/click";
 import { data } from "./global.types";
 import axios from "axios";
+import HealthyCardList from "./component/HealthyCardList";
 
 initializeApp(firebaseConfig);
 
@@ -63,6 +64,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/edit" element={<Editor />} />
+            <Route path="/view" element={<HealthyCardList />} />
             <Route
               path="/home"
               element={

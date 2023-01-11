@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Card } from "@material-ui/core";
+import { Card, Dialog } from "@material-ui/core";
 import "./Healthy.css";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -11,10 +11,19 @@ import { useContext } from "react";
 import AppContext from "./AppContext";
 import EditIcon from "@mui/icons-material/Edit";
 import { data } from "../global.types";
-import { create } from "@material-ui/core/styles/createTransitions";
-import Popover from "@mui/material/Popover";
-import { nutrition } from "../types/global";
-import { maxHeight } from "@mui/system";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 type fetchedObject = {
   fruitSchema: data[];
@@ -24,6 +33,9 @@ type fetchedObject = {
 
 const Healthy = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const navigate = useNavigate();
   const value = useContext(AppContext);
   const {
@@ -46,6 +58,7 @@ const Healthy = () => {
     "Saturday",
     "Sunday",
   ];
+
   useEffect(() => {
     console.log(calorieCollection.current);
     if (mounted === false) {
@@ -53,22 +66,11 @@ const Healthy = () => {
     }
   }, [mounted]);
 
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-  const open = Boolean(anchorEl);
-
   const getUsersCard = async () => {
     await axios
       .get(`http://localhost:4000/home/${uId.current}`)
       .then((response) => {
-        console.log(response.data);
         if (response.data[0]) {
-          console.log(response.data);
           const object = response.data[0];
           const fruitArray = response.data[0].fruitSchema;
           fetchedObject.current = object;
@@ -100,7 +102,6 @@ const Healthy = () => {
         fruitSchema: fruitSchema,
       })
       .then((response) => {
-        console.log(response);
         const object = response.data;
         const fruitArray = response.data.fruitSchema;
         fetchedObject.current = object;
@@ -115,17 +116,8 @@ const Healthy = () => {
     navigate("/edit");
   };
 
-  const displayClickedList = (index: number) => {
-    const displayObj = allUserSelectedFruit.current[index];
-    if (displayObj) {
-      for (let i = 0; i < displayObj.length; i++) {
-        return (
-          <div>
-            ・{displayObj[i].name} : {displayObj[i].nutritions.calories}
-          </div>
-        );
-      }
-    }
+  const displayHealthyList = () => {
+    navigate("/view");
   };
 
   for (let i = 0; i < 7; i++) {
@@ -138,10 +130,6 @@ const Healthy = () => {
           style={{
             padding: "10px",
           }}
-          aria-owns={open ? "mouse-over-popover" : undefined}
-          aria-haspopup="true"
-          onMouseEnter={handlePopoverOpen}
-          onMouseLeave={handlePopoverClose}
         >
           <CardContent>
             <Typography
@@ -153,32 +141,6 @@ const Healthy = () => {
               {days[i]}
             </Typography>
           </CardContent>
-          <Popover
-            id="mouse-over-popover"
-            key={i}
-            sx={{
-              pointerEvents: "none",
-            }}
-            open={open}
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-            onClose={handlePopoverClose}
-            disableRestoreFocus
-          >
-            <Typography
-              style={{ maxHeight: "50vh", overflowY: "auto" }}
-              sx={{ p: 1 }}
-            >
-              {displayClickedList(i)}
-            </Typography>
-          </Popover>
           {calorie.current[i] ? (
             <>
               <h4>Target Calorie</h4>
@@ -194,10 +156,18 @@ const Healthy = () => {
                 clickedCardIndex.current = i;
                 editCard();
               }}
-              style={{ fontSize: "16px" }}
+              style={{ fontSize: "0.7rem" }}
             >
               Edit
             </EditIcon>
+            <VisibilityIcon
+              className="editIcon"
+              style={{ fontSize: "0.7rem" }}
+              onClick={() => {
+                clickedCardIndex.current = i;
+                displayHealthyList();
+              }}
+            ></VisibilityIcon>
           </CardActions>
         </Card>
       </div>
