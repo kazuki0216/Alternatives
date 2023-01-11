@@ -13,6 +13,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import { data } from "../global.types";
 import { create } from "@material-ui/core/styles/createTransitions";
 import Popover from "@mui/material/Popover";
+import { nutrition } from "../types/global";
+import { maxHeight } from "@mui/system";
 
 type fetchedObject = {
   fruitSchema: data[];
@@ -80,7 +82,6 @@ const Healthy = () => {
         }
       });
     setMounted(true);
-    console.log(fetchedObject.current);
   };
 
   const createUserCards = async () => {
@@ -113,9 +114,23 @@ const Healthy = () => {
   const editCard = () => {
     navigate("/edit");
   };
+
+  const displayClickedList = (index: number) => {
+    const displayObj = allUserSelectedFruit.current[index];
+    if (displayObj) {
+      for (let i = 0; i < displayObj.length; i++) {
+        return (
+          <div>
+            ・{displayObj[i].name} : {displayObj[i].nutritions.calories}
+          </div>
+        );
+      }
+    }
+  };
+
   for (let i = 0; i < 7; i++) {
     card.push(
-      <div>
+      <div key={i}>
         <Card
           key={i}
           // ref={calorie.current[i]}
@@ -140,6 +155,7 @@ const Healthy = () => {
           </CardContent>
           <Popover
             id="mouse-over-popover"
+            key={i}
             sx={{
               pointerEvents: "none",
             }}
@@ -156,9 +172,13 @@ const Healthy = () => {
             onClose={handlePopoverClose}
             disableRestoreFocus
           >
-            <Typography sx={{ p: 1 }}>I use Popover.</Typography>
+            <Typography
+              style={{ maxHeight: "50vh", overflowY: "auto" }}
+              sx={{ p: 1 }}
+            >
+              {displayClickedList(i)}
+            </Typography>
           </Popover>
-
           {calorie.current[i] ? (
             <>
               <h4>Target Calorie</h4>
