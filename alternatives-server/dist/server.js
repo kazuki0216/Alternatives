@@ -16,7 +16,7 @@ function setupServer() {
     app.use((0, cors_1.default)());
     app.get("/fruits", getFruit);
     app.get("/home/:uId", getTest);
-    app.post("/post", postRequest);
+    app.post("/post/:uId", postRequest);
     app.patch("/post/edit/:uId", patchFruit);
     mongoose_1.default.set("strictQuery", false);
     mongoose_1.default.connect("mongodb://localhost:27017/alternatives");

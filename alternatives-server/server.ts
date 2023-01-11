@@ -20,7 +20,7 @@ function setupServer() {
   app.use(cors());
   app.get("/fruits", getFruit);
   app.get("/home/:uId", getTest);
-  app.post("/post", postRequest);
+  app.post("/post/:uId", postRequest);
   app.patch("/post/edit/:uId", patchFruit);
 
   mongoose.set("strictQuery", false);

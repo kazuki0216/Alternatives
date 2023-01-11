@@ -18,6 +18,7 @@ const getTest = async (req: Request, res: Response) => {
 };
 
 const postRequest = async (req: Request, res: Response) => {
+  console.log("post ran!!");
   let { uId, fruitSchema } = req.body;
   try {
     const newList = new selectedFood({
@@ -56,7 +57,6 @@ const patchFruit = async (req: Request, res: Response) => {
       },
       { $set: updates }
     );
-    console.log(patchData);
     res.status(200).send(patchData);
   } catch (err) {
     res.send(err).status(500);
