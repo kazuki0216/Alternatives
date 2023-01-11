@@ -2,12 +2,33 @@
   position: relative;
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent),
-    url(../assets/Screenshot\ 2022-12-28\ at\ 18.30.36.png);
+  background: linear-gradient(to top, rgba(1, 0.2, 0.3, 0.4), transparent),
+    url("../assets/photo-1521986329282-0436c1f1e212.avif");
   border-radius: purple;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  display: table;
+}
+
+.login-title {
+  display: table-cell;
+  vertical-align: middle;
+  color: rgb(237, 23, 23);
+  font-weight: bold;
+  margin: 0;
+  top: 40%;
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: center;
+}
+.Landing h1 {
+  font-size: 3rem;
+  font-family: "Montserrat", sans-serif;
+}
+.Landing h2 {
+  font-size: 1.3rem;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* CSS */
@@ -18,14 +39,14 @@
   left: 25%;
   background-image: linear-gradient(
     92.88deg,
-    #43a75c 9.16%,
-    #a8d546 43.89%,
-    #78cd28 64.72%
+    #d027f1 9.16%,
+    #6c31a7 33.89%,
+    #b92b5f 80.69%
   );
   border-radius: 8px;
   border-style: none;
   box-sizing: border-box;
-  color: #ffffff;
+  color: #1f0505;
   cursor: pointer;
   flex-shrink: 0;
   font-family: "Inter UI", "SF Pro Display", -apple-system, BlinkMacSystemFont,

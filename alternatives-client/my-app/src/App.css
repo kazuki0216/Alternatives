@@ -12,7 +12,9 @@ body {
 .App {
   text-align: center;
 }
-
+.Landing h1 h2 {
+  font-size: 50px;
+}
 .Title {
   height: 3rem;
   position: relative;

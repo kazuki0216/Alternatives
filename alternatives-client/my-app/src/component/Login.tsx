@@ -28,6 +28,10 @@ const Login = (props: any) => {
   };
   return (
     <div className="Landing">
+      <div className="login-title">
+        <h1>Alternatives</h1>
+        <h2>What can you eat as an alternative?</h2>
+      </div>
       <button
         className="sign-in"
         onClick={() => signInWithGoogle()}
