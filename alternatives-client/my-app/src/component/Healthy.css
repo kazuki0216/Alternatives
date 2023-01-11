@@ -5,10 +5,15 @@
   position: relative;
   border-radius: 10px;
   text-align: center;
-  background: #5ea3a3;
+  background: #0093af;
   margin: 1rem;
 }
-
+.cards div {
+  flex: 1 1 150px;
+}
+.cards p {
+  font-family: "Courgette", cursive;
+}
 .target-h2 {
   padding-top: 1rem;
   padding-bottom: 10px;
@@ -43,6 +48,8 @@
   grid-template-columns: repeat(3, 1fr);
   column-gap: 2rem;
   row-gap: 2rem;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .added-card:hover {

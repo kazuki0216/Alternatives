@@ -35,6 +35,7 @@ const EditorCard: React.FC<props> = (props: props) => {
   const [totalCalorie, setTotalCalorie] = useState<number>(0);
   const [isCalorieBoolean, setCalorieBoolean] = useState<boolean>(false);
   const [fetched, setFetched] = useState<boolean>(false);
+  const [renderedCalorie, setRenderedCalorie] = useState<number | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -99,7 +100,6 @@ const EditorCard: React.FC<props> = (props: props) => {
     fetchedObject.current.fruitSchema[clickedCardIndex.current] =
       fruitObject.current;
     const newPostObj = fetchedObject.current;
-    console.log(newPostObj);
     await axios.patch(`http://localhost:4000/post/edit/${uId.current}`, {
       newPostObj,
     });
@@ -107,12 +107,8 @@ const EditorCard: React.FC<props> = (props: props) => {
   };
 
   const setTargetCalorie = () => {
-    if (calorie.current[clickedCardIndex.current] === 0) {
-      alert("Please insert a target calorie!");
-    } else {
-      setCalorieBoolean(true);
-      calorie.current[clickedCardIndex.current] = userTargetCalorie;
-    }
+    setCalorieBoolean(true);
+    calorie.current[clickedCardIndex.current] = userTargetCalorie;
   };
 
   const removeItem = (index: number) => {
@@ -159,7 +155,11 @@ const EditorCard: React.FC<props> = (props: props) => {
           <RemoveCircleOutlineIcon
             className="remove-btn"
             onClick={(e) => {
-              setTotalCalorie(totalCalorie - fruit.nutritions.calories);
+              if (totalCalorie - fruit.nutritions.calories < 0) {
+                setTotalCalorie(0);
+              } else {
+                setTotalCalorie(totalCalorie - fruit.nutritions.calories);
+              }
               removeItem(index);
             }}
           />
@@ -171,7 +171,8 @@ const EditorCard: React.FC<props> = (props: props) => {
   return (
     <>
       <div className="EditorCard">
-        {!calorie.current[clickedCardIndex.current] ? (
+        {!calorie.current[clickedCardIndex.current] ||
+        calorie.current[clickedCardIndex.current] === null ? (
           <>
             <div className="calorie-forms">
               <input
@@ -189,17 +190,19 @@ const EditorCard: React.FC<props> = (props: props) => {
             </div>
           </>
         ) : (
-          <h3>{calorie.current[clickedCardIndex.current]} kcal</h3>
+          <>
+            <h3>{calorie.current[clickedCardIndex.current]} kcal</h3>
+            <button
+              className="target-btn"
+              onClick={() => {
+                calorie.current[clickedCardIndex.current] = null;
+                setCalorieBoolean(false);
+              }}
+            >
+              Reset
+            </button>
+          </>
         )}
-        <button
-          className="reset-btn"
-          onClick={() => {
-            setCalorieBoolean(false);
-            calorie.current[clickedCardIndex.current] = null;
-          }}
-        >
-          Reset
-        </button>
         <div className="outer-grid">
           <div className="healthy-container">
             <h2>Fruit List</h2>
@@ -207,7 +210,7 @@ const EditorCard: React.FC<props> = (props: props) => {
           </div>
           <div className="editor-card">
             <div className="card-header">
-              <h2>Wednesday</h2>
+              <h2>{days[clickedCardIndex.current]}</h2>
               <h2
                 style={{
                   color:
@@ -225,7 +228,9 @@ const EditorCard: React.FC<props> = (props: props) => {
           </div>
         </div>
       </div>
-      <button onClick={patchRequest}>Save</button>
+      <button className="save-btn" onClick={patchRequest}>
+        Save
+      </button>
     </>
   );
 };

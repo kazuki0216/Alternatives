@@ -12,6 +12,7 @@ import AppContext from "./AppContext";
 import EditIcon from "@mui/icons-material/Edit";
 import { data } from "../global.types";
 import { create } from "@material-ui/core/styles/createTransitions";
+import Popover from "@mui/material/Popover";
 
 type fetchedObject = {
   fruitSchema: data[];
@@ -20,6 +21,7 @@ type fetchedObject = {
 };
 
 const Healthy = () => {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const navigate = useNavigate();
   const value = useContext(AppContext);
   const {
@@ -49,12 +51,57 @@ const Healthy = () => {
     }
   }, [mounted]);
 
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
+
   const getUsersCard = async () => {
     await axios
       .get(`http://localhost:4000/home/${uId.current}`)
       .then((response) => {
-        const object = response.data[0];
-        const fruitArray = response.data[0].fruitSchema;
+        console.log(response.data);
+        if (response.data[0]) {
+          console.log(response.data);
+          const object = response.data[0];
+          const fruitArray = response.data[0].fruitSchema;
+          fetchedObject.current = object;
+          for (let i = 0; i < fruitArray.length; i++) {
+            allUserSelectedFruit.current.push(fruitArray[i].fruit);
+            calorie.current.push(fruitArray[i].userTargetedCalorie);
+            calorieCollection.current.push(fruitArray[i].totalCalorie);
+          }
+        } else {
+          createUserCards();
+        }
+      });
+    setMounted(true);
+    console.log(fetchedObject.current);
+  };
+
+  const createUserCards = async () => {
+    const fruitSchema = [];
+    for (let i = 0; i < 7; i++) {
+      fruitSchema.push({
+        index: i,
+        fruit: [],
+        totalCalorie: 0,
+        userTargetedCalorie: 0,
+      });
+    }
+    await axios
+      .post(`http://localhost:4000/post/${uId.current}`, {
+        uId: uId.current,
+        fruitSchema: fruitSchema,
+      })
+      .then((response) => {
+        console.log(response);
+        const object = response.data;
+        const fruitArray = response.data.fruitSchema;
         fetchedObject.current = object;
         for (let i = 0; i < fruitArray.length; i++) {
           allUserSelectedFruit.current.push(fruitArray[i].fruit);
@@ -62,53 +109,78 @@ const Healthy = () => {
           calorieCollection.current.push(fruitArray[i].totalCalorie);
         }
       });
-    setMounted(true);
-    console.log(fetchedObject.current);
   };
-
   const editCard = () => {
     navigate("/edit");
   };
   for (let i = 0; i < 7; i++) {
     card.push(
-      <Card
-        key={i}
-        // ref={calorie.current[i]}
-        className="added-card"
-        style={{
-          padding: "10px",
-        }}
-      >
-        <CardContent>
-          <Typography
-            style={{ fontSize: "16px" }}
-            color="textSecondary"
-            gutterBottom
-          >
-            {days[i]}
-          </Typography>
-        </CardContent>
-        {calorie.current[i] ? (
-          <>
-            <h4>Target Calorie</h4>
-            <h5>{calorie.current[i]} kcal</h5>
-          </>
-        ) : (
-          <p>set your goal!</p>
-        )}
-        <CardActions className="editpencil">
-          <EditIcon
-            className="editIcon"
-            onClick={() => {
-              clickedCardIndex.current = i;
-              editCard();
+      <div>
+        <Card
+          key={i}
+          // ref={calorie.current[i]}
+          className="added-card"
+          style={{
+            padding: "10px",
+          }}
+          aria-owns={open ? "mouse-over-popover" : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose}
+        >
+          <CardContent>
+            <Typography
+              style={{ fontSize: "1rem" }}
+              fontFamily="Bebas Neue"
+              color="textSecondary"
+              gutterBottom
+            >
+              {days[i]}
+            </Typography>
+          </CardContent>
+          <Popover
+            id="mouse-over-popover"
+            sx={{
+              pointerEvents: "none",
             }}
-            style={{ fontSize: "16px" }}
+            open={open}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            onClose={handlePopoverClose}
+            disableRestoreFocus
           >
-            Edit
-          </EditIcon>
-        </CardActions>
-      </Card>
+            <Typography sx={{ p: 1 }}>I use Popover.</Typography>
+          </Popover>
+
+          {calorie.current[i] ? (
+            <>
+              <h4>Target Calorie</h4>
+              <h5>{calorie.current[i]} kcal</h5>
+            </>
+          ) : (
+            <p>set your goal!</p>
+          )}
+          <CardActions className="editpencil">
+            <EditIcon
+              className="editIcon"
+              onClick={() => {
+                clickedCardIndex.current = i;
+                editCard();
+              }}
+              style={{ fontSize: "16px" }}
+            >
+              Edit
+            </EditIcon>
+          </CardActions>
+        </Card>
+      </div>
     );
   }
 
