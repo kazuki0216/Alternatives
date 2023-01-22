@@ -15,7 +15,6 @@ I hope you enjoy🍋
 ## Technologies
 This project was created using:
 * React
-* Tailwind CSS
 * Node
 * Express
 * MongoDB
