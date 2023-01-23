@@ -6,11 +6,13 @@ A simple web app that allows you to visualize how much you food you can eat in e
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
+<img width="1440" alt="Screenshot 2023-01-14 at 13 13 41" src="https://user-images.githubusercontent.com/96904689/213948136-bb763674-c9b3-4642-bf26-dd49b35b505f.png">
 
 ## General info
 This project is my first ever solo full-stack web application.
 This project is something that will continuously evolve in the future. 
 I hope you enjoy🍋
+
 
 ## Technologies
 This project was created using:
