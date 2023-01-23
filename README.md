@@ -1,6 +1,6 @@
 # Alternatives
 Solo MVP Enhanced
-A simple web app that allows you to visualize how much you food you can eat in exchange for a fast food.
+A simple web app that allows you to visualize how much you food you can eat with a target calorie count a user sets up.
 
 ## Table of contents
 * [General info](#general-info)
@@ -10,7 +10,7 @@ A simple web app that allows you to visualize how much you food you can eat in e
 
 ## General info
 This project is my first ever solo full-stack web application.
-This project is something that will continuously evolve in the future. 
+This project is still a WIP, and will continuously evolve in the future. 
 I hope you enjoy🍋
 
 
@@ -45,22 +45,16 @@ $ npm install
 $ cd my-app
 $ npm run build
 ```
+<img width="1440" alt="Screenshot 2023-01-23 at 9 29 54" src="https://user-images.githubusercontent.com/96904689/213948955-dc2a1f00-c21f-47ab-94c9-6c72e060b7e8.png">
 
-After downloading all necessary dependencies, start the project by running the following commands:
-```
-$cd ..(if you are still in the client level)
-$npm run concurrent
-```
 
 ## Features
-* Do HTTP requests to a third party api and attain information about nutritious foods.
-* POST request to Postgres database to store data about the user selected items.
-* GET request to Postgres to attain unhealthy food for calorie comparison.
+* Fetch to third party api and attain information about nutritious foods.
+* Implement Firebase/Firestore for users authentication.
+* CRUD operation to Mongo db.
+* When Login happens, retrieve content according to user's login info and deliver correct information. 
+* Implement modularity within the app to deliver the correct interface according to the user's saved info in card. 
 
-### To Do:
-* Get access to the api that includes more information about unhealthy food.
-* Brush up on the UI design
-* Fix bugs regarding update and delete(currently not included in the code base.)
 
 # Sources
 * The initial setup for this project was coded using @Jaymontojo.
