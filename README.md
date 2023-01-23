@@ -17,18 +17,33 @@ I hope you enjoy🍋
 ## Technologies
 This project was created using:
 * React
+* TypeScript
 * Node
 * Express
 * MongoDB
-* Heroku(Deployment)
-* Netlify
+* FireBase/FireStore (Users Authentication)
 
 ## Setup
 To setup this project, use the following steps to have make it ready locally:
+Start off by running the server.
 ```
+$ git clone 
+```
+** server-code
+```
+$ cd alternatives-server
 $ npm install
-$ cd client
+$ npm run dev
+```
+After starting the back-end code, start the client-side code with: 
+
+** front-end code
+```
+$ cd ..
+$ cd alternatives-client
 $ npm install
+$ cd my-app
+$ npm run build
 ```
 
 After downloading all necessary dependencies, start the project by running the following commands:
