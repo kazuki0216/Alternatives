@@ -1,6 +1,6 @@
 # Alternatives
 Solo MVP Enhanced
-A simple web app that allows you to visualize how much you food you can eat with a target calorie count a user sets up.
+A simple web app that allows you to visualize how much healthier food you can eat with a target calorie count a user sets up.
 
 ## Table of contents
 * [General info](#general-info)
