@@ -47,7 +47,7 @@ $ npm run build
 ```
 <img width="1440" alt="Screenshot 2023-01-23 at 9 29 54" src="https://user-images.githubusercontent.com/96904689/213948955-dc2a1f00-c21f-47ab-94c9-6c72e060b7e8.png">
 
-<img width="1440" alt="![Screenshot-2023-03-28-at-23-12-52.png](https://i.postimg.cc/wvPyJvLN/Screenshot-2023-03-28-at-23-12-52.png">
+<img width="1440" alt="[![Screenshot-2023-03-28-at-23-12-52.png](https://i.postimg.cc/wvPyJvLN/Screenshot-2023-03-28-at-23-12-52.png](https://i.postimg.cc/wvPyJvLN/Screenshot-2023-03-28-at-23-12-52.png)">
 
 ## Features
 * Fetch to third party api and attain information about nutritious foods.
