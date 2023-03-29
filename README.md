@@ -11,7 +11,7 @@ A simple web app that allows you to visualize how much healthier food you can ea
 ## General info
 This project is my first ever solo full-stack web application.
 This project is still a WIP, and will continuously evolve in the future. 
-I hope you enjoy🍋
+I hope you enjoy🍋🍎🥝🍇🥑
 
 
 ## Technologies
